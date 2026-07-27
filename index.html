@@ -142,7 +142,7 @@
     .button:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.09); }
     .button.primary { border-color: transparent; color: #221215; background: linear-gradient(135deg, #f2d1c9, #d98d9b); box-shadow: 0 16px 45px rgba(201,123,137,.2); }
     .button.primary:hover { box-shadow: 0 20px 55px rgba(201,123,137,.34); }
-    .button:focus-visible, .icon-button:focus-visible, .nav-link:focus-visible, .reason-card:focus-visible, .memory-card:focus-visible, .sound-card:focus-visible, .tile:focus-visible, textarea:focus-visible {
+    .button:focus-visible, .icon-button:focus-visible, .nav-link:focus-visible, .reason-card:focus-visible, .memory-card:focus-visible, .sound-card:focus-visible, .tile:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, .difficulty-option:focus-visible {
       outline: 2px solid var(--blush);
       outline-offset: 4px;
     }
@@ -289,6 +289,34 @@
     .countdown-unit { min-width:70px; padding:13px 12px; border:1px solid var(--line); border-radius:13px; background:rgba(255,255,255,.035); text-align:center; }
     .countdown-unit strong { display:block; font:1.5rem var(--serif); }
     .countdown-unit span { color:var(--muted); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; }
+    .journey-moments { display:contents; }
+    .user-moment .moment-media { min-height:430px; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:rgba(255,255,255,.025); }
+    .user-moment .moment-media img,.user-moment .moment-media video { width:100%; height:520px; display:block; object-fit:cover; border-radius:24px; box-shadow:var(--shadow); }
+    .user-moment .moment-media video { cursor:default; }
+    .journey-placeholder { min-height:430px; display:grid; place-items:center; color:var(--blush); background:radial-gradient(circle at 50% 35%,rgba(201,123,137,.18),transparent 62%); font:4.2rem var(--serif); }
+    .moment-delete { margin-top:20px; padding:0; border:0; color:#927f82; background:transparent; cursor:pointer; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; transition:color .25s; }
+    .moment-delete:hover { color:var(--blush); }
+    .journey-composer { min-height:620px; }
+    .journey-composer .moment-media { padding:36px; cursor:default; }
+    .journey-composer .future-mark strong { margin-bottom:10px; }
+    .journey-composer .future-mark span { color:var(--muted); line-height:1.7; }
+    .journey-form { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:25px; }
+    .form-field { display:grid; gap:8px; }
+    .form-field.wide { grid-column:1 / -1; }
+    .form-field > span { color:#a9989b; font-size:.66rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; }
+    .form-field input,.form-field textarea { width:100%; padding:14px 15px; border:1px solid var(--line); border-radius:13px; color:var(--paper); background:rgba(0,0,0,.2); outline:none; }
+    .form-field textarea { min-height:112px; }
+    .form-field input[type="date"] { color-scheme:dark; }
+    .file-field { position:relative; min-height:96px; display:grid; place-items:center; padding:15px; border:1px dashed rgba(240,166,179,.3); border-radius:15px; color:var(--muted); background:rgba(201,123,137,.045); text-align:center; cursor:pointer; }
+    .file-field input { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+    .file-field strong { display:block; margin-bottom:4px; color:var(--paper); font-size:.82rem; }
+    .file-field small { font-size:.7rem; }
+    .journey-actions { grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:9px; align-items:center; }
+    .journey-actions .button { min-height:45px; padding:0 18px; }
+    .journey-note { grid-column:1 / -1; margin:0; color:#89777a; font-size:.68rem; line-height:1.55; }
+    .journey-summary { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:18px; color:var(--muted); font-size:.72rem; }
+    .journey-capsule { display:none; width:100%; margin-top:18px; padding:17px 20px; border:1px solid rgba(215,174,114,.3); border-radius:16px; color:var(--gold); background:linear-gradient(135deg,rgba(215,174,114,.1),rgba(201,123,137,.07)); cursor:pointer; text-align:left; }
+    .journey-capsule.visible { display:flex; align-items:center; justify-content:space-between; gap:20px; }
 
     .reasons-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; counter-reset:reason; }
     .reason-card { min-height:240px; position:relative; padding:30px; overflow:hidden; border:1px solid var(--line); border-radius:20px; color:var(--paper); background:var(--glass); text-align:left; cursor:pointer; transition:transform .45s var(--ease),border-color .35s,background .35s; }
@@ -336,17 +364,22 @@
     .game-head p { margin:0; color:var(--muted); font-size:.76rem; }
     .game-score { color:var(--blush); font-size:.72rem; letter-spacing:.08em; text-align:right; }
     .memory-board { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
-    .memory-card { position:relative; aspect-ratio:1; border:0; border-radius:12px; background:transparent; cursor:pointer; transform-style:preserve-3d; transition:transform .65s var(--ease),opacity .3s; }
+    .memory-card { position:relative; aspect-ratio:4/5; border:0; border-radius:12px; background:transparent; cursor:pointer; transform-style:preserve-3d; transition:transform .65s var(--ease),opacity .3s; }
     .memory-card.flipped { transform:rotateY(180deg); }
-    .memory-card.matched { opacity:.3; pointer-events:none; }
+    .memory-card.matched { cursor:zoom-in; }
+    .memory-card.matched .memory-face { border-color:rgba(215,174,114,.65); box-shadow:0 0 22px rgba(215,174,114,.13); }
     .memory-face { position:absolute; inset:0; display:grid; place-items:center; overflow:hidden; border:1px solid var(--line); border-radius:12px; backface-visibility:hidden; }
     .memory-front { background:linear-gradient(135deg,rgba(201,123,137,.16),rgba(255,255,255,.04)); font:1.4rem var(--serif); color:var(--blush); }
-    .memory-back { transform:rotateY(180deg); }
-    .memory-back img { width:100%; height:100%; object-fit:cover; }
+    .memory-back { isolation:isolate; transform:rotateY(180deg); background:#140c0f; }
+    .memory-back::before { content:""; position:absolute; inset:-12px; z-index:0; background-image:var(--memory-image); background-position:center; background-size:cover; filter:blur(13px) saturate(.72); opacity:.52; }
+    .memory-back img { position:relative; z-index:1; width:100%; height:100%; object-fit:contain; }
     .ttt-board { width:min(360px,100%); display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:26px auto; }
     .ttt-cell { aspect-ratio:1; display:grid; place-items:center; border:1px solid var(--line); border-radius:15px; color:var(--blush); background:rgba(0,0,0,.16); cursor:pointer; font:clamp(2rem,6vw,3.6rem) var(--serif); transition:background .25s,border-color .25s; }
     .ttt-cell:hover { border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.05); }
     .ttt-status { min-height:22px; color:var(--muted); font-size:.8rem; text-align:center; }
+    .difficulty-switch { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:18px 0 3px; padding:5px; border:1px solid var(--line); border-radius:15px; background:rgba(0,0,0,.13); }
+    .difficulty-option { min-height:38px; padding:0 8px; border:0; border-radius:10px; color:#8f7e81; background:transparent; cursor:pointer; font-size:.66rem; transition:color .25s,background .25s; }
+    .difficulty-option.active { color:var(--paper); background:rgba(201,123,137,.16); }
     .game-foot { margin-top:23px; text-align:center; }
 
     .discovery-layout { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
@@ -357,7 +390,10 @@
     .quest-step.found { color:var(--gold); border-color:rgba(215,174,114,.55); box-shadow:0 0 24px rgba(215,174,114,.15); }
     .quest-clue { min-height:54px; max-width:420px; color:var(--muted); line-height:1.65; }
     .quest-meta { margin-top:26px; color:var(--gold); font-size:.69rem; letter-spacing:.13em; text-transform:uppercase; }
-    .hidden-ring { position:absolute; z-index:12; width:30px; height:30px; display:grid; place-items:center; padding:0; border:0; color:rgba(215,174,114,.58); background:transparent; cursor:pointer; font:1.45rem var(--serif); filter:drop-shadow(0 0 8px rgba(215,174,114,.25)); transition:color .3s,transform .35s var(--ease),filter .35s; }
+    .quest-hint { min-height:38px; padding:0 15px; border:1px solid var(--line); border-radius:999px; color:#aa9699; background:rgba(0,0,0,.15); cursor:pointer; font-size:.68rem; transition:color .25s,border-color .25s; }
+    .quest-hint:not(:disabled):hover { color:var(--paper); border-color:rgba(255,255,255,.28); }
+    .quest-hint:disabled { opacity:.55; cursor:wait; }
+    .hidden-ring { position:absolute; z-index:12; width:44px; height:44px; display:grid; place-items:center; padding:0; border:0; color:rgba(215,174,114,.34); background:transparent; cursor:pointer; font:1.08rem var(--serif); filter:drop-shadow(0 0 7px rgba(215,174,114,.2)); transition:color .3s,transform .35s var(--ease),filter .35s; }
     .hidden-ring:hover,.hidden-ring:focus-visible { color:var(--gold); transform:scale(1.24) rotate(12deg); filter:drop-shadow(0 0 15px rgba(215,174,114,.58)); outline:none; }
     .hidden-ring.collected { opacity:0; pointer-events:none; transform:scale(1.7); }
     .signal-board { display:grid; grid-template-columns:repeat(2,minmax(0,120px)); gap:11px; justify-content:center; margin:30px auto 24px; }
@@ -365,6 +401,8 @@
     .signal-key:hover { transform:translateY(-2px); color:var(--paper); }
     .signal-key.lit { color:#241518; border-color:var(--blush); background:var(--blush); box-shadow:0 0 34px rgba(240,166,179,.36); transform:scale(.96); }
     .signal-status { min-height:24px; color:var(--muted); text-align:center; font-size:.78rem; }
+    .signal-meta { display:flex; justify-content:center; gap:18px; margin-top:11px; color:#89777a; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; }
+    .signal-meta .active { color:var(--gold); }
 
     .live-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:20px; align-items:stretch; }
     .live-frame { position:relative; min-height:610px; overflow:hidden; border:1px solid var(--line); border-radius:28px; background:#090506; box-shadow:var(--shadow); }
@@ -492,6 +530,7 @@
       .moment,.moment:nth-child(even) { grid-template-columns:1fr; min-height:auto; gap:28px; padding:45px 0 62px 23px; }
       .moment:nth-child(even) .moment-media { order:0; }
       .moment-media img { height:400px; }
+      .user-moment .moment-media img,.user-moment .moment-media video { height:400px; }
       .moment-copy::before,.moment:nth-child(even) .moment-copy::before { left:-48px; right:auto; top:13px; }
       .reasons-grid { grid-template-columns:1fr; }
       .reason-card { min-height:225px; }
@@ -517,8 +556,12 @@
       .stat strong { font-size:1.55rem; }
       .stat span { font-size:.56rem; }
       .moment-media img { height:330px; }
+      .user-moment .moment-media img,.user-moment .moment-media video { height:330px; }
       .memory-board { gap:5px; }
       .memory-face { border-radius:9px; }
+      .journey-form { grid-template-columns:1fr; }
+      .form-field.wide,.journey-actions,.journey-note { grid-column:1; }
+      .difficulty-option { font-size:.6rem; }
       .form-actions { align-items:stretch; flex-direction:column; }
       .form-actions .button { width:100%; }
       .opening h1 { font-size:3.55rem; }
@@ -637,14 +680,34 @@
             <div class="moment-copy"><span class="moment-date">Dezember 2025</span><h3>Unvergesslich.</h3><p>Meine kleine Prinzessin. Ein kalter Monat, der sich durch dich warm angefühlt hat — und ein Bild, in dem ich mich jedes Mal wieder verliere.</p></div>
           </article>
           <article class="moment">
-            <button class="moment-media image-open" data-image="assets/cinematic-bridge.png" aria-label="Unsere cineastische KI-Szene groß ansehen">
-              <img src="assets/cinematic-bridge.jpg" alt="Celine und Berkem auf einer Brücke bei Nacht — eine KI-Interpretation ihrer gemeinsamen Geschichte">
+            <button class="moment-media image-open" data-image="assets/cinematic-bridge-v2.png" aria-label="Unsere cineastische KI-Szene groß ansehen">
+              <img src="assets/cinematic-bridge-v2.png" alt="Celine und Berkem auf einer Brücke bei Nacht — eine KI-Interpretation ihrer gemeinsamen Geschichte">
             </button>
             <div class="moment-copy"><span class="moment-date">Zweimal wir</span><h3>Wir fanden<br>uns wieder.</h3><p>Unsere Geschichte war nicht immer leicht. Wir haben uns verloren, gelernt und zweimal wieder füreinander entschieden. Nicht weil alles perfekt ist — sondern weil unser Wir stärker geworden ist.</p></div>
           </article>
           <article class="moment">
-            <button class="moment-media image-open" data-image="assets/cinematic-faith.png" aria-label="Unsere Zukunftsszene groß ansehen"><img src="assets/cinematic-faith.jpg" alt="Celine und Berkem an einem ruhigen Morgen — eine KI-Interpretation ihrer gemeinsamen Zukunft"></button>
+            <button class="moment-media image-open" data-image="assets/cinematic-faith-v2.png" aria-label="Unsere Zukunftsszene groß ansehen"><img src="assets/cinematic-faith-v2.png" alt="Celine und Berkem an einem ruhigen Morgen — eine KI-Interpretation ihrer gemeinsamen Zukunft"></button>
             <div class="moment-copy"><span class="moment-date">Was vor uns liegt</span><h3>Glaube, Geduld<br>und Zukunft.</h3><p>Wir werden noch schwere Tage haben. Aber wir lernen, sie nicht gegeneinander, sondern miteinander zu tragen — mit Sabr, Vertrauen und einem Herzen, das immer wieder nach Hause findet.</p><div class="countdown" id="countdown" aria-live="polite"></div></div>
+          </article>
+          <div class="journey-moments" id="journeyMoments"></div>
+          <article class="moment future journey-composer">
+            <div class="moment-media">
+              <div class="future-mark"><strong>+</strong><span>Diese Geschichte ist nicht fertig.<br>Hier beginnt euer nächstes Kapitel.</span></div>
+            </div>
+            <div class="moment-copy">
+              <span class="moment-date">Unsere Reise geht weiter</span>
+              <h3>Einen Moment<br>festhalten.</h3>
+              <form class="journey-form" id="journeyForm">
+                <label class="form-field"><span>Datum</span><input id="journeyDate" name="date" type="date" required></label>
+                <label class="form-field"><span>Titel</span><input id="journeyTitle" name="title" type="text" maxlength="70" placeholder="Zum Beispiel: Unser nächster Anfang" required></label>
+                <label class="form-field wide"><span>Was soll bleiben?</span><textarea id="journeyText" name="text" maxlength="700" placeholder="Schreib auf, was diesen Moment zu eurem gemacht hat …" required></textarea></label>
+                <label class="file-field wide"><input id="journeyMedia" name="media" type="file" accept="image/*,video/mp4,video/webm,video/quicktime"><span><strong id="journeyFileLabel">Foto oder kurzes Video auswählen</strong><small>Optional · bleibt privat auf diesem Gerät · maximal 25 MB</small></span></label>
+                <div class="journey-actions"><button class="button primary" id="journeySave" type="submit">Moment hinzufügen <span aria-hidden="true">♡</span></button><button class="button" id="journeyExport" type="button">Backup exportieren</button><button class="button" id="journeyImportButton" type="button">Backup importieren</button><input id="journeyImport" type="file" accept="application/json,.json" hidden></div>
+                <p class="journey-note">Die Einträge werden nur in diesem Browser gespeichert. Mit dem Backup kannst du sie sichern oder auf ein anderes Gerät übertragen.</p>
+              </form>
+              <div class="journey-summary"><span id="journeyCount">Noch kein eigenes Kapitel</span><span>Nur für euch</span></div>
+              <button class="journey-capsule" id="journeyCapsule" type="button"><span>Eine neue Zeitkapsel wartet auf euch.</span><span aria-hidden="true">→</span></button>
+            </div>
           </article>
         </div>
       </div>
@@ -692,6 +755,7 @@
           </section>
           <section class="game-panel">
             <div class="game-head"><div><h3>Drei gewinnt</h3><p>Du bist X. Ich bin O.</p></div><div class="game-score" id="tttScore">BEST OF ∞</div></div>
+            <div class="difficulty-switch" id="tttDifficulty" role="group" aria-label="Schwierigkeitsgrad"><button class="difficulty-option active" data-ttt-level="sweet" type="button">Liebevoll</button><button class="difficulty-option" data-ttt-level="normal" type="button">Normal</button><button class="difficulty-option" data-ttt-level="perfect" type="button">Unbesiegbar</button></div>
             <div class="ttt-status" id="tttStatus" aria-live="polite">Du fängst an.</div>
             <div class="ttt-board" id="tttBoard"></div>
             <div class="game-foot"><button class="button" id="tttReset">Neue Runde</button></div>
@@ -702,12 +766,14 @@
             <div class="game-head"><div><h3>Die Ring-Suche</h3><p>Fünf Ringe sind im ganzen Universum versteckt.</p></div><div class="game-score" id="ringScore">0 / 5</div></div>
             <div class="quest-progress" id="ringProgress" aria-label="Gefundene Ringe"></div>
             <p class="quest-clue" id="ringClue">Erster Hinweis: Dort, wo unser schönstes Kapitel beginnt.</p>
+            <button class="quest-hint" id="ringHint" type="button" disabled>Genauerer Hinweis in 20s</button>
             <div class="quest-meta">Finde alle fünf und öffne die Zukunftskapsel.</div>
           </section>
           <section class="game-panel">
-            <div class="game-head"><div><h3>Kalp Sinyali</h3><p>Merke dir unser Signal und spiele es nach.</p></div><div class="game-score" id="signalLevel">LEVEL 0</div></div>
+            <div class="game-head"><div><h3>Kalp Sinyali</h3><p>Neun Level. Das Signal wird immer schneller.</p></div><div class="game-score" id="signalLevel">LEVEL 0 / 9</div></div>
             <div class="signal-board" id="signalBoard"><button class="signal-key" data-signal="0" aria-label="Mond">☾</button><button class="signal-key" data-signal="1" aria-label="Stern">✦</button><button class="signal-key" data-signal="2" aria-label="Herz">♡</button><button class="signal-key" data-signal="3" aria-label="Ring">○</button></div>
             <div class="signal-status" id="signalStatus">Bereit für unser Signal?</div>
+            <div class="signal-meta"><span id="signalBest">Bestes Signal: 0</span><span id="signalJoker">Joker ab Level 5</span></div>
             <div class="game-foot"><button class="button" id="signalStart">Signal starten</button></div>
           </section>
         </div>
@@ -728,8 +794,8 @@
         <section class="film-section">
           <div class="film-head"><div><span class="eyebrow">AI Memory Films</span><h3>Zwei bewegte Kapitel.</h3></div><button class="button primary" id="playAllFilms">Film &amp; Song starten <span aria-hidden="true">▶</span></button></div>
           <div class="cinema-grid">
-            <article class="cinema-card" data-film="0"><img src="assets/cinematic-bridge.mp4" alt="Celine und Berkem auf einer Brücke bei Nacht"><video src="assets/cinematic-bridge.mp4" poster="assets/cinematic-bridge-v2.png" muted loop playsinline preload="metadata"></video><span class="cinema-shade"></span><div class="cinema-top"><span>AI Film 01</span><span>İki kere</span></div><div class="cinema-copy"><strong>Zwei Wege. Wieder wir.</strong><span>Schwere Phasen verändern die Geschichte — aber sie müssen sie nicht beenden.</span></div><button class="cinema-play" aria-label="Erstes bewegtes Kapitel starten"></button></article>
-            <article class="cinema-card" data-film="1"><img src="assets/cinematic-faith.mp4" alt="Celine und Berkem an einem friedlichen Morgen"><video src="assets/cinematic-faith.mp4" poster="assets/cinematic-faith-v2.png" muted loop playsinline preload="metadata"></video><span class="cinema-shade"></span><div class="cinema-top"><span>AI Film 02</span><span>İnşallah</span></div><div class="cinema-copy"><strong>Ein Morgen. Ein Gebet.</strong><span>Gemeinsam wachsen — mit Geduld, Glauben und Hoffnung auf das, was kommt.</span></div><button class="cinema-play" aria-label="Zweites bewegtes Kapitel starten"></button></article>
+            <article class="cinema-card" data-film="0"><img src="assets/cinematic-bridge-v2.png" alt="Celine und Berkem auf einer Brücke bei Nacht"><video src="assets/cinematic-bridge.mp4" poster="assets/cinematic-bridge-v2.png" muted loop playsinline preload="metadata"></video><span class="cinema-shade"></span><div class="cinema-top"><span>AI Film 01</span><span>İki kere</span></div><div class="cinema-copy"><strong>Zwei Wege. Wieder wir.</strong><span>Schwere Phasen verändern die Geschichte — aber sie müssen sie nicht beenden.</span></div><button class="cinema-play" aria-label="Erstes bewegtes Kapitel starten"></button></article>
+            <article class="cinema-card" data-film="1"><img src="assets/cinematic-faith-v2.png" alt="Celine und Berkem an einem friedlichen Morgen"><video src="assets/cinematic-faith.mp4" poster="assets/cinematic-faith-v2.png" muted loop playsinline preload="metadata"></video><span class="cinema-shade"></span><div class="cinema-top"><span>AI Film 02</span><span>İnşallah</span></div><div class="cinema-copy"><strong>Ein Morgen. Ein Gebet.</strong><span>Gemeinsam wachsen — mit Geduld, Glauben und Hoffnung auf das, was kommt.</span></div><button class="cinema-play" aria-label="Zweites bewegtes Kapitel starten"></button></article>
           </div>
           <div class="faith-band">
             <div class="faith-symbol" aria-hidden="true">☾</div>
@@ -755,6 +821,8 @@
   <div class="modal video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Videonachricht"><button class="icon-button modal-close" data-close aria-label="Video schließen">×</button><video id="messageVideo" controls playsinline></video></div>
   <div class="modal" id="secretModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="secretTitle"><div class="modal-card secret-card"><button class="icon-button modal-close" data-close aria-label="Geheimnis schließen">×</button><div class="secret-heart">♡</div><span class="eyebrow">Top secret</span><h2 id="secretTitle">Du bist mein Zuhause.</h2><p>Nicht jeder findet diesen Ort. Er ist für die eine Person reserviert, die aus ganz normalen Tagen meine Lieblingsmomente macht.</p></div></div>
   <div class="modal" id="promiseModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="promiseTitle"><div class="modal-card secret-card"><button class="icon-button modal-close" data-close aria-label="Zukunftskapsel schließen">×</button><div class="promise-ring" aria-hidden="true"></div><span class="eyebrow">Zukunftskapsel geöffnet</span><h2 id="promiseTitle">Das Signal ist angekommen.</h2><p>Kein leerer Satz und kein Versprechen für einen perfekten Weg. Nur dies: Wenn wir weiter ehrlich wachsen, unseren Glauben stärken und immer wieder zueinanderfinden, soll aus diesem Symbol eines Tages unser gemeinsamer Ring werden. İnşallah.</p></div></div>
+  <div class="modal" id="tttWinModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="tttWinTitle"><div class="modal-card secret-card"><button class="icon-button modal-close" data-close aria-label="Gewinnnachricht schließen">×</button><div class="secret-heart">×</div><span class="eyebrow">Du hast mich geschlagen</span><h2 id="tttWinTitle">Okay Celine, du gewinnst.</h2><p>Nicht nur diese Runde. Du hast längst den wichtigsten Platz in meinem Herzen besetzt — und den gebe ich freiwillig niemals wieder frei.</p></div></div>
+  <div class="modal" id="journeyCapsuleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="journeyCapsuleTitle"><div class="modal-card secret-card"><button class="icon-button modal-close" data-close aria-label="Zeitkapsel schließen">×</button><div class="promise-ring" aria-hidden="true"></div><span class="eyebrow">Fünf neue Kapitel</span><h2 id="journeyCapsuleTitle">Ihr habt weitergeschrieben.</h2><p>Diese Seite begann als Geschenk. Durch eure neuen Momente ist sie zu etwas Echtem geworden: ein Ort, der mit euch wächst. Bewahrt euch genau das — auch wenn der Weg wieder einmal schwerer wird.</p></div></div>
   <div class="modal" id="songModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="songTitle"><div class="modal-card song-modal-card"><button class="icon-button modal-close" data-close aria-label="Songtext schließen">×</button><span class="eyebrow">Unser Song · Türkisch × Russisch</span><h2 id="songTitle">İki Kere · Дважды</h2><p class="song-subtitle">Zwei Sprachen. Zwei Rückwege. Ein gemeinsames Lied.</p><div class="song-sheet"><div class="song-part"><strong>Türkische Strophe</strong><p>Bu gece yine adını söylerim<br>Dünya sustuğunda kalbim bilir<br>İki kez kaybolduk, iki kez bulduk birbirimizi<br>Yolum her defasında sana gelir</p></div><div class="song-part"><strong>Russische Strophe</strong><p>Селин, в твоих глазах мой рассвет<br>Когда мне трудно, ты мой тихий ответ<br>Мы падали, но снова вставали<br>И дорогу домой не потеряли</p></div><div class="song-part wide"><strong>Refrain</strong><p>Celine, Celine, canım benim<br>Ты мой свет среди тишины<br>Celine, Celine, kalbim senin<br>Мы дважды нашли путь друг к другу<br>İnşallah hep yan yana · Навсегда — ты и я</p></div><div class="song-part"><strong>Glaube</strong><p>Sabırla yürürüz, dua ile<br>Пусть вера делает нас сильнее<br>Bir kalp, iki dil, aynı niyet<br>С тобой я выбираю этот путь</p></div><div class="song-part"><strong>Der Ring</strong><p>Bir gün, inşallah, o yüzük parlayacak<br>На твоей руке — наш тихий знак<br>Bu acele değil, bu kalpten bir söz<br>Любовь, терпение и общий путь</p></div></div><div class="song-note">Der vollständige generatorfertige Text mit drei Musikstilen liegt zusätzlich als eigene Datei bereit.</div></div></div>
   <div class="modal" id="returnModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="returnTitle"><div class="modal-card secret-card"><button class="icon-button modal-close" data-close aria-label="Unseren Rückweg schließen">×</button><div class="return-orbit" id="returnOrbit" aria-hidden="true">4</div><span class="return-counter" id="returnCounter">Schritt 1 von 4</span><div class="return-copy"><div><h2 id="returnTitle">Erst ankommen.</h2><p id="returnText">Vier ruhige Atemzüge. Nichts lösen, nichts beweisen — nur kurz daran erinnern, dass wir gerade beide verletzt sein dürfen.</p></div></div><button class="button primary" id="returnNext">Weiter <span aria-hidden="true">→</span></button></div></div>
   <audio id="ourSong" src="assets/iki-kere-dvazhdy.mp3" preload="metadata"></audio>
@@ -837,6 +905,7 @@
       if (updateHistory) history.pushState({ view: name }, '', `#${name}`);
       window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
       name === 'live' ? startLive() : stopLive();
+      if (name === 'games') resumeRingHintCountdown(); else clearInterval(ringHintTimer);
       requestAnimationFrame(updateProgress);
     }
 
@@ -901,6 +970,208 @@
       $('#lightboxImage').src = button.dataset.image;
       openModal($('#lightbox'));
     }));
+
+    const JOURNEY_DB_NAME = 'celine-private-journey';
+    const JOURNEY_STORE = 'moments';
+    let journeyDbPromise, journeyObjectUrls = [];
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g,character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' })[character]);
+
+    function openJourneyDb() {
+      if (journeyDbPromise) return journeyDbPromise;
+      journeyDbPromise = new Promise((resolve,reject) => {
+        const request = indexedDB.open(JOURNEY_DB_NAME,1);
+        request.onupgradeneeded = () => {
+          if (!request.result.objectStoreNames.contains(JOURNEY_STORE)) request.result.createObjectStore(JOURNEY_STORE,{ keyPath:'id' });
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+      return journeyDbPromise;
+    }
+
+    async function readJourneyMoments() {
+      const db = await openJourneyDb();
+      return new Promise((resolve,reject) => {
+        const request = db.transaction(JOURNEY_STORE,'readonly').objectStore(JOURNEY_STORE).getAll();
+        request.onsuccess = () => resolve(request.result || []);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function saveJourneyMoment(moment) {
+      const db = await openJourneyDb();
+      return new Promise((resolve,reject) => {
+        const transaction = db.transaction(JOURNEY_STORE,'readwrite');
+        transaction.objectStore(JOURNEY_STORE).put(moment);
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+      });
+    }
+
+    async function removeJourneyMoment(id) {
+      const db = await openJourneyDb();
+      return new Promise((resolve,reject) => {
+        const transaction = db.transaction(JOURNEY_STORE,'readwrite');
+        transaction.objectStore(JOURNEY_STORE).delete(id);
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+      });
+    }
+
+    function journeyDateLabel(value) {
+      const date = new Date(`${value}T12:00:00`);
+      return Number.isNaN(date.getTime()) ? 'Unser Moment' : date.toLocaleDateString('de-DE',{ day:'2-digit',month:'long',year:'numeric' });
+    }
+
+    function revokeJourneyUrls() {
+      journeyObjectUrls.forEach(url => URL.revokeObjectURL(url));
+      journeyObjectUrls = [];
+    }
+
+    async function renderJourneyMoments() {
+      const moments = (await readJourneyMoments()).sort((a,b) => String(a.date).localeCompare(String(b.date)) || Number(a.createdAt) - Number(b.createdAt));
+      const container = $('#journeyMoments');
+      revokeJourneyUrls();
+      container.replaceChildren();
+      moments.forEach(moment => {
+        const article = document.createElement('article');
+        article.className = 'moment user-moment';
+        let mediaMarkup = '<div class="moment-media"><div class="journey-placeholder" aria-hidden="true">B·C</div></div>';
+        let mediaUrl = '';
+        if (moment.media instanceof Blob && /^(image|video)\//.test(moment.mediaType || moment.media.type)) {
+          mediaUrl = URL.createObjectURL(moment.media);
+          journeyObjectUrls.push(mediaUrl);
+          if ((moment.mediaType || moment.media.type).startsWith('image/')) {
+            mediaMarkup = `<button class="moment-media journey-image" type="button" aria-label="${escapeHtml(moment.title)} groß ansehen"><img src="${mediaUrl}" alt="${escapeHtml(moment.title)}"></button>`;
+          } else {
+            mediaMarkup = `<div class="moment-media"><video src="${mediaUrl}" controls playsinline preload="metadata" aria-label="${escapeHtml(moment.title)}"></video></div>`;
+          }
+        }
+        article.innerHTML = `${mediaMarkup}<div class="moment-copy"><span class="moment-date">${escapeHtml(journeyDateLabel(moment.date))} · Von Celine ergänzt</span><h3>${escapeHtml(moment.title)}</h3><p>${escapeHtml(moment.text)}</p><button class="moment-delete" type="button">Diesen Moment entfernen</button></div>`;
+        $('.journey-image',article)?.addEventListener('click',() => { $('#lightboxImage').src = mediaUrl; openModal($('#lightbox')); });
+        $('.moment-delete',article).addEventListener('click',async () => {
+          if (!confirm('Diesen Moment wirklich aus der Reise entfernen?')) return;
+          await removeJourneyMoment(moment.id);
+          await renderJourneyMoments();
+          showToast('Der Moment wurde entfernt.');
+        });
+        container.append(article);
+      });
+      $('#journeyCount').textContent = moments.length ? `${moments.length} ${moments.length === 1 ? 'eigenes Kapitel' : 'eigene Kapitel'} gespeichert` : 'Noch kein eigenes Kapitel';
+      $('#journeyCapsule').classList.toggle('visible',moments.length >= 5);
+      return moments;
+    }
+
+    function fileToDataUrl(blob) {
+      return new Promise((resolve,reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    function dataUrlToBlob(dataUrl) {
+      if (typeof dataUrl !== 'string' || !dataUrl.startsWith('data:')) return null;
+      const [header,payload] = dataUrl.split(',');
+      const type = header.match(/^data:([^;]+)/)?.[1] || 'application/octet-stream';
+      const binary = atob(payload || '');
+      const bytes = new Uint8Array(binary.length);
+      for (let index = 0; index < binary.length; index++) bytes[index] = binary.charCodeAt(index);
+      return new Blob([bytes],{ type });
+    }
+
+    async function exportJourney() {
+      const moments = await readJourneyMoments();
+      if (!moments.length) { showToast('Füge zuerst einen Moment hinzu.'); return; }
+      $('#journeyExport').disabled = true;
+      try {
+        const exportMoments = await Promise.all(moments.map(async moment => ({ ...moment, media:undefined, mediaData:moment.media instanceof Blob ? await fileToDataUrl(moment.media) : null })));
+        const payload = JSON.stringify({ version:1, exportedAt:new Date().toISOString(), moments:exportMoments });
+        const url = URL.createObjectURL(new Blob([payload],{ type:'application/json' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `unsere-reise-${new Date().toISOString().slice(0,10)}.json`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url),1000);
+        showToast('Backup wurde vorbereitet.');
+      } finally { $('#journeyExport').disabled = false; }
+    }
+
+    async function importJourney(file) {
+      if (!file) return;
+      try {
+        const data = JSON.parse(await file.text());
+        if (data.version !== 1 || !Array.isArray(data.moments)) throw new Error('Ungültiges Backup');
+        for (const source of data.moments.slice(0,100)) {
+          const media = source.mediaData ? dataUrlToBlob(source.mediaData) : null;
+          if (media && media.size > 25 * 1024 * 1024) throw new Error('Eine Datei im Backup ist zu groß');
+          const moment = {
+            id:String(source.id || globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`).slice(0,120),
+            date:String(source.date || '').slice(0,10),
+            title:String(source.title || '').slice(0,70),
+            text:String(source.text || '').slice(0,700),
+            createdAt:Number(source.createdAt) || Date.now(),
+            media,
+            mediaType:media?.type || ''
+          };
+          if (!moment.date || !moment.title || !moment.text) continue;
+          await saveJourneyMoment(moment);
+        }
+        await renderJourneyMoments();
+        showToast('Eure Reise wurde erfolgreich importiert.');
+      } catch {
+        showToast('Dieses Backup konnte nicht gelesen werden.');
+      } finally {
+        $('#journeyImport').value = '';
+      }
+    }
+
+    function initJourney() {
+      const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0,10);
+      $('#journeyDate').value = today;
+      $('#journeyMedia').addEventListener('change',event => {
+        const file = event.target.files[0];
+        $('#journeyFileLabel').textContent = file ? file.name : 'Foto oder kurzes Video auswählen';
+      });
+      $('#journeyForm').addEventListener('submit',async event => {
+        event.preventDefault();
+        const file = $('#journeyMedia').files[0] || null;
+        if (file && (!/^(image|video)\//.test(file.type) || file.size > 25 * 1024 * 1024)) {
+          showToast('Bitte wähle ein Foto oder Video bis maximal 25 MB.');
+          return;
+        }
+        const button = $('#journeySave');
+        button.disabled = true;
+        try {
+          await saveJourneyMoment({
+            id:globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`,
+            date:$('#journeyDate').value,
+            title:$('#journeyTitle').value.trim(),
+            text:$('#journeyText').value.trim(),
+            createdAt:Date.now(),
+            media:file,
+            mediaType:file?.type || ''
+          });
+          event.target.reset();
+          $('#journeyDate').value = today;
+          $('#journeyFileLabel').textContent = 'Foto oder kurzes Video auswählen';
+          await renderJourneyMoments();
+          confetti(24);
+          showToast('Euer neues Kapitel ist gespeichert ♡');
+        } catch {
+          showToast('Der Moment konnte auf diesem Gerät nicht gespeichert werden.');
+        } finally { button.disabled = false; }
+      });
+      $('#journeyExport').addEventListener('click',exportJourney);
+      $('#journeyImportButton').addEventListener('click',() => $('#journeyImport').click());
+      $('#journeyImport').addEventListener('change',event => importJourney(event.target.files[0]));
+      $('#journeyCapsule').addEventListener('click',() => openModal($('#journeyCapsuleModal')));
+      renderJourneyMoments().catch(() => {
+        $('#journeyCount').textContent = 'Speicherung in diesem Browser nicht verfügbar';
+        $('#journeySave').disabled = true;
+      });
+    }
 
     $('#reasonsGrid').innerHTML = reasons.map(([title, text]) => `<button class="reason-card" aria-expanded="false"><h3>${title}</h3><p>${text}</p></button>`).join('');
     $$('.reason-card').forEach(card => card.addEventListener('click', () => {
@@ -1020,11 +1291,19 @@
       memoryDeck = shuffle(memoryImages.flatMap((image, id) => [{ image, id }, { image, id }]));
       memoryOpen = []; memoryMoves = 0; memoryPairs = 0; memoryLocked = false;
       $('#memoryScore').innerHTML = '0 ZÜGE<br>0 / 8 PAARE';
-      $('#memoryBoard').innerHTML = memoryDeck.map((card, index) => `<button class="memory-card" data-card="${index}" aria-label="Verdeckte Memory-Karte"><span class="memory-face memory-front">B·C</span><span class="memory-face memory-back"><img src="${card.image}" alt="Unsere Erinnerung"></span></button>`).join('');
-      $$('.memory-card').forEach(card => card.addEventListener('click', () => flipMemory(card)));
+      $('#memoryBoard').innerHTML = memoryDeck.map((card, index) => `<button class="memory-card" data-card="${index}" aria-label="Verdeckte Memory-Karte"><span class="memory-face memory-front">B·C</span><span class="memory-face memory-back"><img src="${card.image}" alt="Unsere Erinnerung vollständig im Rahmen"></span></button>`).join('');
+      $$('.memory-card').forEach((card,index) => {
+        $('.memory-back',card).style.setProperty('--memory-image',`url("${memoryDeck[index].image}")`);
+        card.addEventListener('click', () => flipMemory(card));
+      });
     }
     function flipMemory(card) {
-      if (memoryLocked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+      if (card.classList.contains('matched')) {
+        $('#lightboxImage').src = memoryDeck[Number(card.dataset.card)].image;
+        openModal($('#lightbox'));
+        return;
+      }
+      if (memoryLocked || card.classList.contains('flipped')) return;
       card.classList.add('flipped');
       card.setAttribute('aria-label', 'Aufgedeckte Memory-Karte');
       memoryOpen.push(card);
@@ -1047,15 +1326,24 @@
     }
     $('#memoryReset').addEventListener('click', initMemory);
 
-    let ttt = Array(9).fill(''), tttOver = false;
+    let ttt = Array(9).fill(''), tttOver = false, tttRound = 0;
+    let tttDifficulty = localStorage.getItem('celineTttDifficulty') || 'sweet';
     const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
     function winner(board) {
       for (const line of wins) if (line.every(index => board[index] && board[index] === board[line[0]])) return board[line[0]];
       return board.every(Boolean) ? 'draw' : null;
     }
     function initTtt() {
+      tttRound++;
       ttt = Array(9).fill(''); tttOver = false;
-      $('#tttStatus').textContent = 'Du fängst an.';
+      const labels = { sweet:'LIEBEVOLL', normal:'NORMAL', perfect:'UNBESIEGBAR' };
+      $('#tttScore').textContent = labels[tttDifficulty];
+      $('#tttStatus').textContent = tttDifficulty === 'sweet' ? 'Du fängst an. Ich bin heute nett.' : 'Du fängst an.';
+      $$('.difficulty-option').forEach(button => {
+        const active = button.dataset.tttLevel === tttDifficulty;
+        button.classList.toggle('active',active);
+        button.setAttribute('aria-pressed',String(active));
+      });
       $('#tttBoard').innerHTML = ttt.map((_, index) => `<button class="ttt-cell" data-cell="${index}" aria-label="Leeres Feld ${index + 1}"></button>`).join('');
       $$('.ttt-cell').forEach(cell => cell.addEventListener('click', () => tttMove(Number(cell.dataset.cell))));
     }
@@ -1065,8 +1353,10 @@
       if (finishTtt()) return;
       $('#tttStatus').textContent = 'Berkem überlegt …';
       tttOver = true;
+      const round = tttRound;
       setTimeout(() => {
-        const move = bestMove();
+        if (round !== tttRound) return;
+        const move = chooseTttMove();
         tttOver = false;
         placeTtt(move, 'O');
         if (!finishTtt()) $('#tttStatus').textContent = 'Du bist dran.';
@@ -1082,20 +1372,80 @@
       const result = winner(ttt);
       if (!result) return false;
       tttOver = true;
-      if (result === 'X') { $('#tttStatus').textContent = 'Du hast gewonnen. Okay, Respekt. ♡'; confetti(45); }
+      if (result === 'X') {
+        $('#tttStatus').textContent = 'Du hast gewonnen. Okay, Respekt. ♡';
+        confetti(45);
+        if (!localStorage.getItem('celineTttSecret')) {
+          localStorage.setItem('celineTttSecret','1');
+          setTimeout(() => openModal($('#tttWinModal')),650);
+        }
+      }
       else if (result === 'O') $('#tttStatus').textContent = 'Knapp. Noch eine Runde?';
       else $('#tttStatus').textContent = 'Unentschieden — wir sind ein gutes Team.';
       return true;
     }
-    function bestMove() {
+    function immediateTttMove(mark,board = ttt) {
+      const open = board.map((value,index) => value ? -1 : index).filter(index => index >= 0);
+      for (const index of open) { const copy=[...board]; copy[index]=mark; if (winner(copy) === mark) return index; }
+      return -1;
+    }
+    function positionalTttMove() {
       const open = ttt.map((value,index) => value ? -1 : index).filter(index => index >= 0);
-      for (const mark of ['O','X']) for (const index of open) { const copy=[...ttt]; copy[index]=mark; if (winner(copy) === mark) return index; }
       if (!ttt[4]) return 4;
       const corners = shuffle([0,2,6,8].filter(index => !ttt[index]));
       return corners[0] ?? shuffle(open)[0];
     }
+    function minimaxTtt(board,isMaximizing,depth = 0) {
+      const result = winner(board);
+      if (result === 'O') return 10 - depth;
+      if (result === 'X') return depth - 10;
+      if (result === 'draw') return 0;
+      const scores = [];
+      board.forEach((value,index) => {
+        if (value) return;
+        board[index] = isMaximizing ? 'O' : 'X';
+        scores.push(minimaxTtt(board,!isMaximizing,depth + 1));
+        board[index] = '';
+      });
+      return isMaximizing ? Math.max(...scores) : Math.min(...scores);
+    }
+    function perfectTttMove() {
+      const candidates = [];
+      ttt.forEach((value,index) => {
+        if (value) return;
+        const copy = [...ttt]; copy[index] = 'O';
+        candidates.push([index,minimaxTtt(copy,false)]);
+      });
+      const bestScore = Math.max(...candidates.map(([,score]) => score));
+      return shuffle(candidates.filter(([,score]) => score === bestScore))[0][0];
+    }
+    function chooseTttMove() {
+      const winning = immediateTttMove('O');
+      if (winning >= 0) return winning;
+      const block = immediateTttMove('X');
+      if (tttDifficulty === 'perfect') return perfectTttMove();
+      if (tttDifficulty === 'normal') {
+        if (block >= 0 && Math.random() < .84) return block;
+        return positionalTttMove();
+      }
+      if (block >= 0 && Math.random() < .48) return block;
+      const open = ttt.map((value,index) => value ? -1 : index).filter(index => index >= 0);
+      return shuffle(open)[0];
+    }
+    $$('.difficulty-option').forEach(button => button.addEventListener('click',() => {
+      tttDifficulty = button.dataset.tttLevel;
+      localStorage.setItem('celineTttDifficulty',tttDifficulty);
+      initTtt();
+    }));
     $('#tttReset').addEventListener('click', initTtt);
 
+    const ringRiddles = [
+      'Bevor irgendein Kapitel eine Zahl bekam, war da schon ein Bild von uns.',
+      'Unsere Geschichte musste eine Grenze überqueren, um wieder bei uns anzukommen.',
+      'Manche Antworten sprechen wir aus, ohne ein einziges Wort zu brauchen.',
+      'Ein Wunsch ruht dort, wo er nicht verloren gehen kann.',
+      'Das stärkste Signal dieser Welt trägt ein rotes Zeichen.'
+    ];
     const ringClues = [
       'Dort, wo unser schönstes Kapitel beginnt.',
       'Dort, wo zwei Wege wieder zu einem wurden.',
@@ -1111,6 +1461,7 @@
       { selector: '#view-live .live-frame', style: 'bottom:76px;right:27px' }
     ];
     let foundRings = new Set(JSON.parse(localStorage.getItem('celineFoundRings') || '[]'));
+    let ringHintIndex = -2, ringHintSeconds = 20, ringHintDetailed = false, ringHintTimer;
 
     function initRingHunt() {
       ringTargets.forEach((item,index) => {
@@ -1143,63 +1494,136 @@
       $('#ringProgress').innerHTML = ringTargets.map((_,index) => `<span class="quest-step${foundRings.has(index) ? ' found' : ''}">${foundRings.has(index) ? '○' : index + 1}</span>`).join('');
       $('#ringScore').textContent = `${foundRings.size} / ${ringTargets.length}`;
       const next = ringTargets.findIndex((_,index) => !foundRings.has(index));
-      $('#ringClue').textContent = next < 0 ? 'Alle Ringe gefunden. Die Zukunftskapsel gehört euch.' : `${next === 0 ? 'Erster' : 'Nächster'} Hinweis: ${ringClues[next]}`;
+      if (next !== ringHintIndex) startRingHint(next);
+      renderRingClue(next);
     }
 
-    let signalSequence = [], signalInput = 0, signalBusy = false, signalLevel = 0;
+    function renderRingClue(next = ringTargets.findIndex((_,index) => !foundRings.has(index))) {
+      const button = $('#ringHint');
+      if (next < 0) {
+        $('#ringClue').textContent = 'Alle Ringe gefunden. Die Zukunftskapsel gehört euch.';
+        button.hidden = true;
+        return;
+      }
+      button.hidden = false;
+      $('#ringClue').textContent = `${next === 0 ? 'Erstes' : 'Nächstes'} Rätsel: ${ringHintDetailed ? ringClues[next] : ringRiddles[next]}`;
+      button.disabled = !ringHintDetailed && ringHintSeconds > 0;
+      button.textContent = ringHintDetailed ? 'Genauer Hinweis geöffnet' : ringHintSeconds > 0 ? `Genauerer Hinweis in ${ringHintSeconds}s` : 'Genaueren Hinweis zeigen';
+    }
+
+    function startRingHint(next) {
+      clearInterval(ringHintTimer);
+      ringHintIndex = next;
+      ringHintDetailed = false;
+      ringHintSeconds = 20;
+      if (next < 0) return;
+      resumeRingHintCountdown();
+    }
+    function resumeRingHintCountdown() {
+      clearInterval(ringHintTimer);
+      if (currentView !== 'games' || ringHintIndex < 0 || ringHintDetailed || ringHintSeconds <= 0) return;
+      ringHintTimer = setInterval(() => {
+        ringHintSeconds--;
+        renderRingClue(ringHintIndex);
+        if (ringHintSeconds <= 0) clearInterval(ringHintTimer);
+      },1000);
+    }
+    $('#ringHint').addEventListener('click',() => {
+      if (ringHintSeconds > 0 || ringHintDetailed) return;
+      ringHintDetailed = true;
+      renderRingClue();
+    });
+
+    const SIGNAL_TARGET = 9;
+    let signalSequence = [], signalInput = 0, signalBusy = false, signalLevel = 0, signalJoker = 0, signalRun = 0;
+    let signalBest = Number(localStorage.getItem('celineSignalBest') || 0);
     const signalKeys = $$('.signal-key');
-    function flashSignal(index,duration = 430) {
+    function flashSignal(index,duration = 430,gap = 150) {
       return new Promise(resolve => {
         const key = signalKeys[index];
         key.classList.add('lit');
-        setTimeout(() => { key.classList.remove('lit'); setTimeout(resolve,170); },duration);
+        setTimeout(() => { key.classList.remove('lit'); setTimeout(resolve,gap); },duration);
       });
     }
-    async function playSignalSequence() {
+    function renderSignalMeta() {
+      $('#signalBest').textContent = `Bestes Signal: ${signalBest}`;
+      const joker = $('#signalJoker');
+      joker.textContent = signalJoker ? 'Herzschlag-Joker bereit' : signalLevel >= 5 ? 'Joker verbraucht' : 'Joker ab Level 5';
+      joker.classList.toggle('active',Boolean(signalJoker));
+    }
+    async function playSignalSequence(run = signalRun) {
       signalBusy = true; signalInput = 0;
       $('#signalStatus').textContent = 'Schau genau hin …';
       await new Promise(resolve => setTimeout(resolve,420));
-      for (const index of signalSequence) await flashSignal(index);
+      if (run !== signalRun) return;
+      const duration = Math.max(210,470 - (signalLevel - 1) * 34);
+      const gap = Math.max(75,155 - (signalLevel - 1) * 9);
+      for (const index of signalSequence) {
+        await flashSignal(index,duration,gap);
+        if (run !== signalRun) return;
+      }
       signalBusy = false;
       $('#signalStatus').textContent = 'Jetzt du.';
     }
     function startSignalGame() {
       if (signalBusy) return;
+      signalRun++;
       signalLevel = 1;
+      signalJoker = 0;
       signalSequence = [Math.floor(Math.random() * 4)];
-      $('#signalLevel').textContent = 'LEVEL 1';
+      $('#signalLevel').textContent = `LEVEL 1 / ${SIGNAL_TARGET}`;
       $('#signalStart').textContent = 'Neu starten';
-      playSignalSequence();
+      renderSignalMeta();
+      playSignalSequence(signalRun);
     }
     async function handleSignal(index) {
       if (signalBusy || !signalSequence.length) return;
+      const run = signalRun;
       signalBusy = true;
-      await flashSignal(index,250);
+      await flashSignal(index,210,65);
+      if (run !== signalRun) return;
       if (index !== signalSequence[signalInput]) {
+        if (signalJoker) {
+          signalJoker = 0;
+          signalInput = 0;
+          $('#signalStatus').textContent = 'Der Herzschlag-Joker hält die Verbindung. Noch einmal …';
+          renderSignalMeta();
+          setTimeout(() => playSignalSequence(run),900);
+          return;
+        }
         signalSequence = []; signalLevel = 0;
         signalBusy = false;
-        $('#signalLevel').textContent = 'LEVEL 0';
+        $('#signalLevel').textContent = `LEVEL 0 / ${SIGNAL_TARGET}`;
         $('#signalStatus').textContent = 'Signal verloren. Wir finden den Weg noch einmal.';
         $('#signalStart').textContent = 'Erneut versuchen';
+        renderSignalMeta();
         return;
       }
       signalInput++;
       if (signalInput < signalSequence.length) { signalBusy = false; return; }
-      if (signalLevel >= 6) {
-        signalBusy = true;
+      signalBest = Math.max(signalBest,signalLevel);
+      localStorage.setItem('celineSignalBest',String(signalBest));
+      if (signalLevel >= SIGNAL_TARGET) {
+        signalBusy = false;
+        signalSequence = [];
         $('#signalStatus').textContent = 'Verbindung perfekt — zweimal gefunden, für immer verbunden. ♡';
         $('#signalLevel').textContent = 'CONNECTED';
+        $('#signalStart').textContent = 'Noch einmal verbinden';
+        renderSignalMeta();
         confetti(55);
         return;
       }
       signalLevel++;
-      $('#signalLevel').textContent = `LEVEL ${signalLevel}`;
-      $('#signalStatus').textContent = 'Stark. Das Signal wird länger …';
+      if (signalLevel === 5 && !signalJoker) signalJoker = 1;
+      $('#signalLevel').textContent = `LEVEL ${signalLevel} / ${SIGNAL_TARGET}`;
+      $('#signalStatus').textContent = signalLevel === 5 ? 'Level 5 — Herzschlag-Joker aktiviert.' : 'Stark. Das Signal wird länger und schneller …';
+      renderSignalMeta();
       signalSequence.push(Math.floor(Math.random() * 4));
-      setTimeout(playSignalSequence,780);
+      setTimeout(() => playSignalSequence(run),780);
     }
     $('#signalStart').addEventListener('click',startSignalGame);
     signalKeys.forEach((key,index) => key.addEventListener('click',() => handleSignal(index)));
+    renderSignalMeta();
 
     const filmCards = $$('.cinema-card');
     let allFilmsPlaying = false;
@@ -1320,6 +1744,7 @@
     });
 
     setupWishbox();
+    initJourney();
     updateVoucherState();
     initMemory();
     initTtt();
